@@ -1,22 +1,7 @@
-// @flow
-
-import { useState, RefObject, useRef } from 'react';
-
+import { useState, useRef } from 'react';
+import { Ranges, BottomlessProps, BottomlessDefaults, OnItemsRendered, BottomlessState, BottomlessRefType } from './types';
 import { isRangeVisible } from './helpers';
 import { scanForUnloadedRanges } from './scanForUnloadedRanges';
-
-import { Ranges, BottomlessProps as PropsBase, BottomlessDefaults, OnItemsRendered, BottomlessState } from './types';
-
-export interface RefProps {
-  resetAfterIndex?: (index: number, shouldForceUpdate?: boolean) => void;
-  getItemStyleCache?: (index: number) => void;
-  forceUpdate: () => void;
-}
-
-
-type RefType = RefObject<RefProps> | undefined;
-
-type UseBottomlessProps = PropsBase;
 
 interface State {
   lastRenderedStartIndex: number;
@@ -24,12 +9,10 @@ interface State {
   memoizedUnloadedRanges: Ranges;
 }
 
-// resetAfterIndex(startIndex, true);
-// getItemStyleCache === 'function') {
-// getItemStyleCache(-1);
+type RefType = BottomlessRefType | undefined;
 
 
-const loadUnloadedRanges = (p: UseBottomlessProps, ref: RefType, state: Omit<State, "memoizedUnloadedRanges">, unloadedRanges: Ranges): void => {
+const loadUnloadedRanges = (p: BottomlessProps, ref: RefType, state: Omit<State, "memoizedUnloadedRanges">, unloadedRanges: Ranges): void => {
   for (let i = 0; i < unloadedRanges.length; i++) {
     const [startIndex, stopIndex] = unloadedRanges[i];
     p.loadMoreItems(startIndex, stopIndex).then(() => {
@@ -46,7 +29,7 @@ const loadUnloadedRanges = (p: UseBottomlessProps, ref: RefType, state: Omit<Sta
         // Handle an unmount while promises are still in flight.
         if (ref!==undefined && ref.current) {
           const liveRef = ref.current;
-          if (liveRef.resetAfterIndex) {
+          if (liveRef.resetAfterIndex !== undefined) {
             liveRef.resetAfterIndex(startIndex, true);
           } else {
             // HACK reset temporarily cached item styles to force PureComponent to re-render.
@@ -55,7 +38,9 @@ const loadUnloadedRanges = (p: UseBottomlessProps, ref: RefType, state: Omit<Sta
             if (liveRef.getItemStyleCache) {
               liveRef.getItemStyleCache(-1);
             }
-            liveRef.forceUpdate();
+            if (liveRef.forceUpdate) {
+              liveRef.forceUpdate();
+            }
           }
         }
       }
@@ -64,7 +49,7 @@ const loadUnloadedRanges = (p: UseBottomlessProps, ref: RefType, state: Omit<Sta
 };
 
 
-const ensureRowsLoaded = (p: UseBottomlessProps, ref: RefType, state: State): State => {
+const ensureRowsLoaded = (p: BottomlessProps, ref: RefType, state: State): State => {
   const startIndex = state.lastRenderedStartIndex;
   const stopIndex = state.lastRenderedStopIndex;
 
@@ -90,9 +75,8 @@ const ensureRowsLoaded = (p: UseBottomlessProps, ref: RefType, state: State): St
 
 }
 
-
-export const useBottomless = (p: UseBottomlessProps): BottomlessState => {
-  const refContainer = useRef<RefObject<RefProps>>();
+export const useBottomless = (p: BottomlessProps): BottomlessState => {
+  const refContainer = useRef<BottomlessRefType>();
   const setState = useState<State>({
     lastRenderedStartIndex: -1,
     lastRenderedStopIndex: -1,

@@ -10,7 +10,7 @@ import { InfiniteGridExample } from "./InfiniteGridExample";
 const viewName: Record<ExampleType, string> = {
   "exL1": "Items react-window-infinite-loader",
   "exL2": "Items TS trans react-window-infinite-loader",
-  "exL3": "Itema hook",
+  "exL3": "Items hook",
   "exG1": "Grid react-window-infinite-loader",
 };
 
@@ -30,5 +30,5 @@ const Choose = (p: AppProps) =>
 export const ContentView = (p: AppProps) =>
   <div className="row">
     <div className="col-3"><Choose {...p} /></div>
-    <div className="col">{viewComps[p.selected]}</div>
+    <div className="col">{viewComps[p.selected]()}</div>
   </div>;

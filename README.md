@@ -6,3 +6,6 @@ Then with `yarn create react-app my-app --template typescript` because that temp
 
 Some code adapted from https://codesandbox.io/s/fervent-darwin-i8ssl.
 
+https://github.com/bvaughn/react-window
+
+https://github.com/bvaughn/react-virtualized-auto-sizer.git
