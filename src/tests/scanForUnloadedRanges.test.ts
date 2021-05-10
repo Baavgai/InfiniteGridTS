@@ -1,81 +1,50 @@
-import { scanForUnloadedRanges } from "../Bottomlesss/scanForUnloadedRanges"
+import { scanForUnloadedRanges, ScanForUnloadedRangesProps } from "../Bottomlesss/scanForUnloadedRanges"
 
+const createIsItemLoaded = (rows: boolean[]) =>
+  (index: number) => rows[index];
 
-const test = () => {
-  function createIsItemLoaded(rows: any[]) {
-    return (index: number) => rows[index];
-  }
-  describe('scanForUnloadedRanges', () => {
+const buildProps = (rows: boolean[]): ScanForUnloadedRangesProps =>
+({
+  isItemLoaded: createIsItemLoaded(rows),
+  startIndex: 0,
+  stopIndex: rows.length - 1,
+  itemCount: rows.length - 1
+});
 
-    it('should return an empty array for a range of rows that have all been loaded', () => {
-      expect(
-        scanForUnloadedRanges({
-          isItemLoaded: createIsItemLoaded([true, true, true]),
-          startIndex: 0,
-          stopIndex: 2,
-        })
-      ).toEqual([]);
-    });
+const buildAllProps = (loaded: boolean, stopIndex: number): ScanForUnloadedRangesProps =>
+({
+  isItemLoaded: _ => loaded, startIndex: 0, stopIndex, itemCount: stopIndex + 1
+});
 
-    it('return a range of only 1 unloaded row', () => {
-      expect(
-        scanForUnloadedRanges({
-          isItemLoaded: createIsItemLoaded([true, false, true]),
-          startIndex: 0,
-          stopIndex: 2,
-        })
-      ).toEqual([[1, 1]]);
-    });
+describe('scanForUnloadedRanges', () => {
 
-    it('return a range of multiple unloaded rows', () => {
-      expect(
-        scanForUnloadedRanges({
-          isItemLoaded: createIsItemLoaded([false, false, true]),
-          startIndex: 0,
-          stopIndex: 2,
-        })
-      ).toEqual([[0, 1]]);
-    });
-
-    it('return multiple ranges of unloaded rows with min 20', () => {
-      expect(
-        scanForUnloadedRanges({
-          isItemLoaded: createIsItemLoaded([
-            true,
-            false,
-            false,
-            true,
-            false,
-            true,
-            false,
-          ]),
-          startIndex: 0,
-          stopIndex: 6,
-          minimumBatchSize: 20
-        })
-      ).toEqual([[1, 2], [4, 4], [6, 20]]);
-    });
-
-    it('return multiple ranges of unloaded rows', () => {
-      expect(
-        scanForUnloadedRanges({
-          isItemLoaded: createIsItemLoaded([
-            true,
-            false,
-            false,
-            true,
-            false,
-            true,
-            false,
-          ]),
-          startIndex: 0,
-          stopIndex: 6,
-          minimumBatchSize: 6
-        })
-      ).toEqual([[1, 2], [4, 4], [6, 6]]);
-    });
-
+  it('should return an empty array for a range of rows that have all been loaded', () => {
+    expect(scanForUnloadedRanges(buildAllProps(true, 10))).toEqual([]);
   });
-}
 
-test();
+  it('return a range of only 1 unloaded row', () => {
+    expect(scanForUnloadedRanges(buildProps([true, false, true])))
+      .toEqual([[1, 1]]);
+  });
+
+  it('return a range of multiple unloaded rows', () => {
+    expect(scanForUnloadedRanges(buildProps([false, false, true])))
+      .toEqual([[0, 1]]);
+  });
+
+  it('return full range', () => {
+    const n = 3;
+    expect(scanForUnloadedRanges(buildAllProps(false, n))).toEqual([[0, n]]);
+  });
+
+  it('return full range 10000', () => {
+    const n = 10000;
+    expect(scanForUnloadedRanges(buildAllProps(false, n))).toEqual([[0, n]]);
+  });
+
+  it('return multiple ranges of unloaded rows', () => {
+    expect(scanForUnloadedRanges(buildProps([true, false, false, true, false, true, false])))
+      .toEqual([[1, 2], [4, 4], [6, 6]]);
+  });
+
+});

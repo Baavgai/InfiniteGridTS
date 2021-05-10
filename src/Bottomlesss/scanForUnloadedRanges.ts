@@ -1,12 +1,12 @@
 import { Ranges, BottomlessProps, BottomlessDefaults } from './types';
 
-interface Props extends Pick<BottomlessProps, "isItemLoaded" | "minimumBatchSize"> {
+export interface ScanForUnloadedRangesProps extends Pick<BottomlessProps, "isItemLoaded" | "minimumBatchSize"> {
   startIndex: number;
   stopIndex: number;
   itemCount?: number;
 }
 
-export const scanForUnloadedRanges = (p: Props): Ranges => {
+export const scanForUnloadedRanges = (p: ScanForUnloadedRangesProps): Ranges => {
   const { isItemLoaded, itemCount, minimumBatchSize, startIndex, stopIndex } = {...BottomlessDefaults, ...p};
   const unloadedRanges: Ranges = [];
 
