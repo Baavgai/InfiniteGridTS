@@ -8,7 +8,7 @@ export interface BottomlessRefProps {
 
 export type BottomlessRefType = RefObject<BottomlessRefProps>;
 
-export type Ranges = [number,number][];
+export type Ranges = [number, number][];
 
 export interface OnItemsRenderedProps {
   visibleStartIndex: number;
@@ -46,7 +46,7 @@ export interface BottomlessComponentProps extends BottomlessProps {
 }
 
 
-export const BottomlessDefaults = {minimumBatchSize: 10, threshold: 15};
+export const BottomlessDefaults = { minimumBatchSize: 10, threshold: 15, itemCount: 1000 };
 
 /*
 export interface RefProps {
