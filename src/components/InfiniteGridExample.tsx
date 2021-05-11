@@ -1,11 +1,11 @@
 import React from "react";
 import { FixedSizeGrid as Grid, GridChildComponentProps } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
-import { useInifinityTester, InifinityTesterState } from "./useInifinityTester";
+import { useInfinityTester, InfinityTesterState } from "./useInfinityTester";
 
 const NUM_COLUMNS = 4;
 
-const Cell = (p: InifinityTesterState) => ({ columnIndex, rowIndex, style }: GridChildComponentProps) => {
+const Cell = (p: InfinityTesterState) => ({ columnIndex, rowIndex, style }: GridChildComponentProps) => {
   const index = rowIndex * NUM_COLUMNS + columnIndex;
   const label = p.isItemLoaded(index)
     ? `Item (${index})`
@@ -17,7 +17,7 @@ const Cell = (p: InifinityTesterState) => ({ columnIndex, rowIndex, style }: Gri
   );
 };
 
-const View = (p: InifinityTesterState) =>
+const View = (p: InfinityTesterState) =>
   <InfiniteLoader
     {...p}
     itemCount={1000}
@@ -48,6 +48,6 @@ const View = (p: InifinityTesterState) =>
   </InfiniteLoader>;
 
 export const InfiniteGridExample = () => {
-  const p = useInifinityTester(500);
+  const p = useInfinityTester(500);
   return <View {...p} />;
 };

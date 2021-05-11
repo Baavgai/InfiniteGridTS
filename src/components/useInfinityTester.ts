@@ -5,7 +5,7 @@ interface State {
   loadStatus: { [index: number]: boolean };
 }
 
-export interface InifinityTesterState {
+export interface InfinityTesterState {
   isItemLoaded: (index: number) => boolean;
   loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any>;
 }
@@ -21,7 +21,7 @@ const updateStatus = (startIndex: number, stopIndex: number, value: boolean) => 
   return { loadStatus };
 };
 
-export const useInifinityTester = (delay?: number): InifinityTesterState => {
+export const useInfinityTester = (delay?: number): InfinityTesterState => {
   const [state, setState] = useState<State>({ loadStatus: {} });
 
   return {

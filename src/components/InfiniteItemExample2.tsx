@@ -1,9 +1,9 @@
 import React from "react";
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import { InfiniteLoader } from "../Bottomlesss/InfiniteLoader";
-import { useInifinityTester, InifinityTesterState } from "./useInifinityTester";
+import { useInfinityTester, InfinityTesterState } from "./useInfinityTester";
 
-const Cell = (p: InifinityTesterState) => ({ index, style }: ListChildComponentProps) => {
+const Cell = (p: InfinityTesterState) => ({ index, style }: ListChildComponentProps) => {
   const label = p.isItemLoaded(index)
     ? `Item (${index})`
     : "Loading...";
@@ -14,7 +14,7 @@ const Cell = (p: InifinityTesterState) => ({ index, style }: ListChildComponentP
   );
 };
 
-const View = (p: InifinityTesterState) =>
+const View = (p: InfinityTesterState) =>
   <InfiniteLoader
     {...p}
     itemCount={1000}
@@ -35,6 +35,6 @@ const View = (p: InifinityTesterState) =>
   </InfiniteLoader>;
 
 export const InfiniteItemExample = () => {
-  const p = useInifinityTester(500);
+  const p = useInfinityTester(500);
   return <View {...p} />;
 };

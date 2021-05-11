@@ -1,4 +1,4 @@
-export const ALL_EXAMPLES = ["exL1", "exL2", "exL3", "exG1"] as const;
+export const ALL_EXAMPLES = ["exL1", "exL2", "exL3", "exG1", "exFixed"] as const;
 export type ExampleType = (typeof ALL_EXAMPLES)[number];
 
 

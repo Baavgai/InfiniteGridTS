@@ -1,3 +1,19 @@
 body {
   padding-top: 5rem;
 }
+
+
+.sticky {
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  z-index: 2;
+}
+
+.nonstick,
+.sticky {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  box-sizing: border-box;
+}
