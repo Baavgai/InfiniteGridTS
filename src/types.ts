@@ -1,13 +1,11 @@
-export const ALL_EXAMPLES = ["exL1", "exL2", "exL3", "exG1", "exFixed"] as const;
-export type ExampleType = (typeof ALL_EXAMPLES)[number];
-
-
 export interface AppState {
-  selected: ExampleType;
+  selectedExample: number;
+  loadDelay: number;
+  height: number;
 }
 
 export interface AppController {
-  selectExample: (x: ExampleType) => void;
+  selectExample: (x: number) => void;
 }
 
 export type AppProps = AppState & AppController;

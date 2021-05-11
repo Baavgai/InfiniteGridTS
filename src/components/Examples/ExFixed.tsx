@@ -1,9 +1,7 @@
 import React, { createContext, forwardRef } from "react";
 import { FixedSizeList as List, FixedSizeListProps } from "react-window";
-// import { ListChildComponentProps } from "react-window";
+import { AppProps } from "../../types";
 
-
-// children: ComponentType<ListChildComponentProps<T>>;
 
 interface Data {
   stickyIndices: number[];
@@ -70,9 +68,9 @@ const StickyList = ({ children, stickyIndices, ...rest }: StickyListProps) =>
   </StickyListContext.Provider>;
 
 
-export const ExFixed = () =>
+export const ExampleComponent = (ap: AppProps) =>
   <StickyList
-    height={150}
+    height={ap.height}
     innerElementType={innerElementType}
     itemCount={1000}
     itemSize={35}
@@ -83,7 +81,7 @@ export const ExFixed = () =>
   </StickyList>;
 
 
-
+export const ExampleName = "Sticky list head";
 
 /*
 import React, { createContext, forwardRef, useContext } from "react";

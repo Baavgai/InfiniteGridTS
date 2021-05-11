@@ -1,7 +1,8 @@
 import React from "react";
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
-import { useBottomless } from "../Bottomlesss/useBottomless";
-import { useInfinityTester, InfinityTesterState } from "./useInfinityTester";
+import { useBottomless } from "../../Bottomlesss/useBottomlessStandAlone";
+import { useInfinityTester, InfinityTesterState } from "../useInfinityTester";
+import { AppProps } from "../../types";
 
 const Cell = (p: InfinityTesterState) => ({ index, style }: ListChildComponentProps) => {
   const label = p.isItemLoaded(index)
@@ -14,12 +15,12 @@ const Cell = (p: InfinityTesterState) => ({ index, style }: ListChildComponentPr
   );
 };
 
-const View = (p: InfinityTesterState) => {
+const View = (p: InfinityTesterState & AppProps) => {
   const bs = useBottomless({ itemCount: 1000, isItemLoaded: p.isItemLoaded, loadMoreItems: p.loadMoreItems });
   return (
     <List
       className="List"
-      height={150}
+      height={p.height}
       itemCount={1000}
       itemSize={32}
       onItemsRendered={bs.onItemsRendered}
@@ -31,8 +32,10 @@ const View = (p: InfinityTesterState) => {
   );
 };
 
-export const InfiniteItemExample = () => {
-  const p = useInfinityTester(500);
-
-  return <View {...p} />;
+export const ExampleComponent = (ap: AppProps) => {
+  const p = useInfinityTester(ap.loadDelay);
+  return <View {...p} {...ap} />;
 };
+
+export const ExampleName = "Items hook standalone";
+

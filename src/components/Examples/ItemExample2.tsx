@@ -1,7 +1,9 @@
 import React from "react";
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
-import { InfiniteLoader } from "../Bottomlesss/InfiniteLoader";
-import { useInfinityTester, InfinityTesterState } from "./useInfinityTester";
+import { InfiniteLoader } from "../../Bottomlesss/InfiniteLoader";
+import { useInfinityTester, InfinityTesterState } from "../useInfinityTester";
+import { AppProps } from "../../types";
+
 
 const Cell = (p: InfinityTesterState) => ({ index, style }: ListChildComponentProps) => {
   const label = p.isItemLoaded(index)
@@ -14,7 +16,7 @@ const Cell = (p: InfinityTesterState) => ({ index, style }: ListChildComponentPr
   );
 };
 
-const View = (p: InfinityTesterState) =>
+const View = (p: InfinityTesterState & AppProps) =>
   <InfiniteLoader
     {...p}
     itemCount={1000}
@@ -22,7 +24,7 @@ const View = (p: InfinityTesterState) =>
     {({ onItemsRendered, ref }) => (
       <List
         className="List"
-        height={150}
+        height={p.height}
         itemCount={1000}
         itemSize={32}
         onItemsRendered={onItemsRendered}
@@ -34,7 +36,10 @@ const View = (p: InfinityTesterState) =>
     )}
   </InfiniteLoader>;
 
-export const InfiniteItemExample = () => {
-  const p = useInfinityTester(500);
-  return <View {...p} />;
+export const ExampleComponent = (ap: AppProps) => {
+  const p = useInfinityTester(ap.loadDelay);
+  return <View {...p} {...ap} />;
 };
+
+export const ExampleName = "Items TS trans react-window-infinite-loader";
+

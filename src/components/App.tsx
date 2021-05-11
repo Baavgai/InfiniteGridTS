@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { Layout } from "./Layout"
 import { ContentView } from "./ContentView";
-
-import { AppProps, AppState, ExampleType, ALL_EXAMPLES } from "../types";
+import { AppProps } from "../types";
 
 const useAppProps = (): AppProps => {
-  const [state, setState] = useState<AppState>({ selected: ALL_EXAMPLES[0] });
-  const selectExample = (selected: ExampleType) => setState({ selected });
-  return { ...state, selectExample };
+  const [selectedExample, setSelectedExample] = useState(0);
+  const selectExample = (x: number) => setSelectedExample(x);
+
+  return { 
+    selectedExample, 
+    selectExample,
+    loadDelay: 1200,
+    height: 600
+   };
 }
 
 const Content = () => {
