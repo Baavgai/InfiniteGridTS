@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import { FixedSizeList as List } from "react-window";
+import { AppProps } from "../../types";
 
 interface ItemRendererProps {
   index: number;
@@ -26,16 +27,16 @@ const Header = (p: State) => (
 
 const innerElementType = (p: State) =>
   forwardRef<any>(
-    ({ children, ...rest }, ref) =>
-      <div ref={ref} {...rest}>
-        <Header {...p} />
-        {children}
-      </div>
+    ({ children, ...rest }, ref) => {
+      console.log({rest})
+      return <div ref={ref} {...rest}><Header {...p} />{children}</div>
+    }
+
   );
 
-const StickyList = (p: State) =>
+const StickyList = (p: State & AppProps) =>
   <List
-    height={150}
+    height={p.height}
     innerElementType={innerElementType(p)}
     itemCount={1000}
     itemSize={35}
@@ -44,8 +45,12 @@ const StickyList = (p: State) =>
   </List>;
 
 
-export const ExFixed = () =>
-  <StickyList header="test" itemSize={35} />
+export const ExampleComponent = (p: AppProps) =>
+  <StickyList {...p} header="test" itemSize={35} />
+
+
+export const ExampleName = "Sticky fixed head";
+
 
 /*
 const Header = (p: State) => (
@@ -53,5 +58,13 @@ const Header = (p: State) => (
     {p.header}
   </div>
 );
+const innerElementType = (p: State) =>
+  forwardRef<any>(
+    ({ children, ...rest }, ref) =>
+      <div ref={ref} {...rest}>
+        <Header {...p} />
+        {children}
+      </div>
+  );
 
 */
