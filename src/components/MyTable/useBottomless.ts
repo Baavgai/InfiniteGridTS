@@ -31,9 +31,9 @@ interface OnItemsRenderedProps {
   visibleStopIndex: number;
 }
 
-type OnItemsRendered = (props: OnItemsRenderedProps) => any;
+export type OnItemsRendered = (props: OnItemsRenderedProps) => any;
 
-interface BottomlessState {
+export interface BottomlessState {
   onItemsRendered: OnItemsRendered;
   ref?: Ref<any>;
   itemCount: number;

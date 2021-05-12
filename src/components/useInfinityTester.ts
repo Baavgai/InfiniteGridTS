@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { wait } from "../functions";
 
 interface State {
   loadStatus: { [index: number]: boolean };
@@ -9,9 +10,6 @@ export interface InfinityTesterState {
   isItemLoaded: (index: number) => boolean;
   loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any>;
 }
-
-const wait = (ms: number) =>
-  new Promise<void>(resolve => setTimeout(resolve, ms));
 
 const updateStatus = (startIndex: number, stopIndex: number, value: boolean) => (s: State): State => {
   const { loadStatus } = s;
