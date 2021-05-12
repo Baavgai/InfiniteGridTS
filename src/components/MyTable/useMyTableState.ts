@@ -1,13 +1,16 @@
 import { Ref } from "react";
-import { MyTableProps } from "./types";
+import { MyTableProps, CellRenderProps } from "./types";
 import { useBottomless, OnItemsRendered } from "./useBottomless";
+import { CellRender } from "./CellRenderer";
 // export type { OnItemsRendered };
 
 export interface ColumnDef<TRow> {
   field: keyof TRow;
+  colIndex: number;
   colWidth: number;
   name: string;
   style: React.CSSProperties;
+  cellRender: (props: CellRenderProps<TRow>) => JSX.Element;
 }
 
 export interface MyTableState<TRow = any> extends Omit<MyTableProps<TRow>, "columns"> {
@@ -27,16 +30,19 @@ export const useMyTableState = <TRow = any>(p: MyTableProps<TRow>): MyTableState
   });
   const columns: ColumnDef<TRow>[] = [];
   let rowWidth = 0;
-  p.columns.forEach(x => {
+  p.columns.forEach(({ field, ...x }, colIndex) => {
     const colWidth = x.colWidth ?? 100;
+    const name = x.name ?? `${field}`;
+    const style: React.CSSProperties = { position: "absolute", left: rowWidth, width: colWidth, height: p.rowHeight };
     columns.push({
-      field: x.field,
-      colWidth,
-      name: x.name ?? `${x.field}`,
-      style: { position: "absolute", left: rowWidth, width: colWidth, height: p.rowHeight }
+      field, colWidth, name, style, colIndex,
+      cellRender: x.cellRender ?? (p => CellRender(p))
     });
     rowWidth += colWidth;
   });
+  const scrollBarWidth = (window && document) ? (window.innerWidth - document.documentElement.clientWidth) : 28;
+
+  rowWidth += scrollBarWidth;
 
   return {
     totalRows: p.totalRows,

@@ -4,12 +4,10 @@ import { useMyTableState, MyTableState } from "./useMyTableState";
 import { MyTableProps } from "./types";
 
 const Row = (p: MyTableState) => ({ index, style }: ListChildComponentProps) => {
-  const data = p.getRow(index);
-  return data === undefined
+  const row = p.getRow(index);
+  return row === undefined
     ? <div key={index} style={style}>Loading</div>
-    : <div key={index} style={style}>{
-      p.columns.map((x,i) => <div key={`${index}-${i}`} style={x.style}>{data[x.field]}</div>)
-    }</div>
+    : <div key={index} style={style}>{p.columns.map(x => x.cellRender({...x, row, rowIndex: index}))}</div>
 };
 
 const TableBody = (p: MyTableState) =>
