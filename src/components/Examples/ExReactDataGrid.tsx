@@ -41,7 +41,7 @@ export const ExampleComponent = (ap: AppProps) =>
   <MillionCells />;
 
 
-export const ExampleName = "Data Grid MillionCells";
+export const ExampleName = "React Data Grid MillionCells";
 
 
 /*

@@ -1,4 +1,5 @@
 import { useState, useRef, Ref, RefObject } from 'react';
+import { OnItemsRendered } from "../types";
 
 export interface BottomlessProps {
   isItemLoaded: (index: number) => boolean;
@@ -25,13 +26,6 @@ interface BottomlessRefProps {
 type BottomlessRefType = RefObject<BottomlessRefProps>;
 
 type Ranges = [number, number][];
-
-interface OnItemsRenderedProps {
-  visibleStartIndex: number;
-  visibleStopIndex: number;
-}
-
-export type OnItemsRendered = (props: OnItemsRenderedProps) => any;
 
 export interface BottomlessState {
   onItemsRendered: OnItemsRendered;

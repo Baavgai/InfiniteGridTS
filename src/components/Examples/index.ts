@@ -9,7 +9,7 @@ import * as ItemExample1 from "./ItemExample";
 import * as ItemExample2 from "./ItemExample2";
 import * as ItemExample3 from "./ItemExample3";
 import * as ItemExample4 from "./ItemExample4";
-import * as ExMyTable from "./ExMyTable";
+import * as ExMyDataGrid from "./ExMyDataGrid";
 import * as ExMyTableRaw from "./ExMyTableRaw";
 
 // import * as DataGridExample1 from "./ExDataGrid";
@@ -24,7 +24,7 @@ export interface ExampleType {
 }
 
 export const Examples: ExampleType[] = [
-  { name: ExMyTable.ExampleName, comp: p => ExMyTable.ExampleComponent(p) },
+  { name: ExMyDataGrid.ExampleName, comp: p => ExMyDataGrid.ExampleComponent(p) },
   { name: ExMyTableRaw.ExampleName, comp: p => ExMyTableRaw.ExampleComponent(p) },
   { name: ExGridFixed.ExampleName, comp: p => ExGridFixed.ExampleComponent(p) },
   { name: ItemExample1.ExampleName, comp: p => ItemExample1.ExampleComponent(p) },
