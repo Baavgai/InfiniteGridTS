@@ -18,7 +18,8 @@ const createItem = (id: number): Item => ({
 });
 
 interface State {
-  cache: { [index: number]: Item };
+  // cache: { [index: number]: Item };
+  cache: Record<number, Item>;
 }
 
 export interface InfinityDataTesterState {
@@ -46,14 +47,14 @@ export const useInfinityDataTester = (delay?: number): InfinityDataTesterState =
   const [state, setState] = useState<State>({ cache: {} });
   console.log(state);
   const isItemLoaded = (i: number) => {
-    const loaded = !!state.cache[i];
+    const loaded = state.cache[i] !== undefined;
     console.log({ loaded })
     return loaded;
   }
 
   return {
     isItemLoaded,
-    getItemData: i => state.cache[i],
+    getItemData: i => isItemLoaded(i) ? state.cache[i] : undefined,
     loadMoreItems: (startIndex, stopIndex) => {
       setState(updateStatus(startIndex, stopIndex, false));
       return wait(delay ?? 1500)

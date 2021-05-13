@@ -7,7 +7,7 @@ const Row = (p: DataGridState) => ({ index, style }: ListChildComponentProps) =>
   const row = p.getRow(index);
   return row === undefined
     ? <div key={index} style={style}>Loading</div>
-    : <div key={index} style={style}>{p.columns.map(x => x.cellRender(x.getProps(index, row)))}</div>
+    : <div key={index} style={style}>{p.columns.map(x => x.cellRenderer(x.getProps(index, row)))}</div>
 };
 
 export const DataGridBody = (p: DataGridState) =>

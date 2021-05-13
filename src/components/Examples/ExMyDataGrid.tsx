@@ -2,13 +2,13 @@ import React from "react";
 // import { useBottomless } from "../../Bottomlesss/useBottomlessStandAlone";
 import { useInfinityDataTester, Item } from "../useInfinityDataTester";
 import { AppProps } from "../../types";
-import { DataGrid, DataGridProps } from "../../DataGrid"
+import { DataGrid, DataGridObjectProps } from "../../DataGrid"
 
 
 export const ExampleComponent = (ap: AppProps) => {
   const p = useInfinityDataTester(ap.loadDelay);
   // const bs = useBottomless({ itemCount: 1000, isItemLoaded: p.isItemLoaded, loadMoreItems: p.loadMoreItems });
-  const mp: DataGridProps<Item> = {
+  const mp: DataGridObjectProps<Item> = {
     columns: [
       { field: "id", colWidth: 75 },
       { field: "firstName", colWidth: 200 },

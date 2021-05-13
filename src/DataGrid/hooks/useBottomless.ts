@@ -1,5 +1,5 @@
 import { useState, useRef, Ref, RefObject } from 'react';
-import { OnItemsRendered } from "../types";
+import { OnItemsRendered } from "../types"
 
 export interface BottomlessProps {
   isItemLoaded: (index: number) => boolean;
