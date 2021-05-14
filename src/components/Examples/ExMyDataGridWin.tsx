@@ -2,7 +2,7 @@ import React from "react";
 // import { useBottomless } from "../../Bottomlesss/useBottomlessStandAlone";
 import { useInfinityTester } from "../useInfinityTester";
 import { AppProps } from "../../types";
-import { DataGrid, DataGridArrayProps } from "../../DataGrid";
+import { DataGridView, DataGridArrayProps, calcDataGridArrayState } from "../../DataGrid";
 import { range } from "../../functions";
 
 
@@ -15,16 +15,17 @@ export const ExampleComponent = (ap: AppProps) => {
       { name: "firstName", colWidth: 200 },
       { name: "lastName", colWidth: 200 },
       { name: "age", colWidth: 50 },
-      { name: "lastName", colWidth: 200, cellRenderer: x => <div style={x.style}>Custom! {x.cellValue}</div> },
+      { name: "lastName", colWidth: 200 },
     ],
     totalRows: 1000,
-    gridHeight: ap.height,
+    viewHeight: ap.height,
     rowHeight: 35,
     loadRows: p.loadMoreItems,
     getRow: x => range(9).map(i =>i * 10000 + x)
   };
-  return <DataGrid {...mp} />;
+  const vp = calcDataGridArrayState(mp);
+  return <DataGridView {...vp} />;
 };
 
-export const ExampleName = "My data grid array";
+export const ExampleName = "ExMyDataGridWin";
 
