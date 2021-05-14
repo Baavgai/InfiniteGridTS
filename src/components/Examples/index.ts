@@ -25,15 +25,15 @@ export interface ExampleType {
 }
 
 export const Examples: ExampleType[] = [
+  { name: ExGridFixed.ExampleName, comp: p => ExGridFixed.ExampleComponent(p) },
+  { name: GridExample1.ExampleName, comp: p => GridExample1.ExampleComponent(p) },
   { name: ExMyDataGridA.ExampleName, comp: p => ExMyDataGridA.ExampleComponent(p) },
   { name: ExMyDataGrid.ExampleName, comp: p => ExMyDataGrid.ExampleComponent(p) },
   { name: ExMyTableRaw.ExampleName, comp: p => ExMyTableRaw.ExampleComponent(p) },
-  { name: ExGridFixed.ExampleName, comp: p => ExGridFixed.ExampleComponent(p) },
   { name: ItemExample1.ExampleName, comp: p => ItemExample1.ExampleComponent(p) },
   { name: ItemExample2.ExampleName, comp: p => ItemExample2.ExampleComponent(p) },
   { name: ItemExample3.ExampleName, comp: p => ItemExample3.ExampleComponent(p) },
   { name: ItemExample4.ExampleName, comp: p => ItemExample4.ExampleComponent(p) },
-  { name: GridExample1.ExampleName, comp: p => GridExample1.ExampleComponent(p) },
   { name: ExFixed.ExampleName, comp: p => ExFixed.ExampleComponent(p) },
   { name: ExFixed2.ExampleName, comp: p => ExFixed2.ExampleComponent(p) },
 ]

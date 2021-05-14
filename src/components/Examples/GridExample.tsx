@@ -4,7 +4,7 @@ import InfiniteLoader from "react-window-infinite-loader";
 import { useInfinityTester, InfinityTesterState } from "../useInfinityTester";
 import { AppProps } from "../../types";
 
-const NUM_COLUMNS = 4;
+const NUM_COLUMNS = 40;
 
 const Cell = (p: InfinityTesterState) => ({ columnIndex, rowIndex, style }: GridChildComponentProps) => {
   const index = rowIndex * NUM_COLUMNS + columnIndex;
@@ -41,7 +41,7 @@ const View = (p: InfinityTesterState & AppProps) =>
           });
         }}
         ref={ref}
-        width={300}
+        width={1000}
       >
         {Cell(p)}
       </Grid>

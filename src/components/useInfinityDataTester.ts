@@ -31,23 +31,27 @@ export interface InfinityDataTesterState {
 
 const updateStatus = (startIndex: number, stopIndex: number, liveLoad: boolean) => (s: State): State => {
   console.log({ fn: "updateStatus", startIndex, stopIndex, liveLoad })
-  const { cache } = s;
-  for (let index = startIndex; index <= stopIndex; index++) {
-    if (liveLoad) {
-      cache[index] = createItem(index + 1);
-    } else {
-      delete cache[index];
+  if (s.cache) {
+    const { cache } = s;
+    for (let index = startIndex; index <= stopIndex; index++) {
+      if (liveLoad) {
+        cache[index] = createItem(index + 1);
+      } else {
+        delete cache[index];
+      }
     }
+    console.log({ fn: "updateStatus", startIndex, stopIndex, cache })
+    return { cache };
+  } else {
+    return s;
   }
-  console.log({ fn: "updateStatus", startIndex, stopIndex, cache })
-  return { cache };
 };
 
 export const useInfinityDataTester = (delay?: number): InfinityDataTesterState => {
   const [state, setState] = useState<State>({ cache: {} });
   console.log(state);
   const isItemLoaded = (i: number) => {
-    const loaded = state.cache[i] !== undefined;
+    const loaded = state && state.cache && state.cache[i] !== undefined;
     console.log({ loaded })
     return loaded;
   }

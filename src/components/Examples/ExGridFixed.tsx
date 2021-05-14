@@ -57,27 +57,4 @@ export const ExampleComponent = (p: AppProps) =>
   <StickyGrid {...p} itemSize={35} />
 
 
-export const ExampleName = "Grid Sticky fixed head";
-
-
-/*
-const Header = (p: State) => (
-  <div className="sticky" style={{ top: 0 * p.itemSize, left: 0, width: "100%", height: p.itemSize }}>
-    {p.header}
-  </div>
-);
-const innerElementType = (p: State) =>
-  forwardRef<any>(
-    ({ children, ...rest }, ref) =>
-      <div ref={ref} {...rest}>
-        <Header {...p} />
-        {children}
-      </div>
-  );
-const Header = (p: State) => (
-  <div className="sticky" style={{ top: 0 * p.itemSize, left: 0, width: COL_WIDTH, height: p.itemSize }}>
-    {p.header}
-  </div>
-);
-
-*/
+export const ExampleName = "ExGridFixed: Grid Sticky fixed head";
