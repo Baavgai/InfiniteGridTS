@@ -12,6 +12,10 @@ import * as ItemExample4 from "./ItemExample4";
 import * as ExMyDataGrid from "./ExMyDataGrid";
 import * as ExMyDataGridA from "./ExMyDataGridA";
 import * as ExMyTableRaw from "./ExMyTableRaw";
+import * as ExGridVirtMulti from "./ExGridVirtMulti";
+import * as ExGridVirtDemo from "./ExGridVirtDemo";
+import * as ExGridVirtMulti2 from "./ExGridVirtMulti2";
+import * as ExGridVirtMulti3 from "./ExGridVirtMulti3";
 
 // import * as DataGridExample1 from "./ExDataGrid";
 // import * as ReactTableExample1 from "./ExReactTable";
@@ -25,6 +29,10 @@ export interface ExampleType {
 }
 
 export const Examples: ExampleType[] = [
+  { name: ExGridVirtMulti3.ExampleName, comp: p => ExGridVirtMulti3.ExampleComponent(p) },
+  { name: ExGridVirtMulti2.ExampleName, comp: p => ExGridVirtMulti2.ExampleComponent(p) },
+  { name: ExGridVirtDemo.ExampleName, comp: p => ExGridVirtDemo.ExampleComponent(p) },
+  { name: ExGridVirtMulti.ExampleName, comp: p => ExGridVirtMulti.ExampleComponent(p) },
   { name: ExGridFixed.ExampleName, comp: p => ExGridFixed.ExampleComponent(p) },
   { name: GridExample1.ExampleName, comp: p => GridExample1.ExampleComponent(p) },
   { name: ExMyDataGridA.ExampleName, comp: p => ExMyDataGridA.ExampleComponent(p) },

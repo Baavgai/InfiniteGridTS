@@ -17,3 +17,11 @@ body {
   border-bottom: 1px solid #eee;
   box-sizing: border-box;
 }
+
+.Cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
